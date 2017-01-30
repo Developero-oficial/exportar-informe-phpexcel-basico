@@ -19,6 +19,9 @@ $objPHPExcel->getProperties()->setCreator("Developero")
                ->setKeywords("office 2007 openxml php")
                ->setCategory("Test result file");
 
+$objPHPExcel->getDefaultStyle()->getFont()->setName('Arial')
+                                          ->setSize(10);            
+
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Lista reproducción')
             ->setCellValue('B1', 'Vídeo')
@@ -37,12 +40,17 @@ $objPHPExcel->setActiveSheetIndex(0)
 $i++;
 }
 
+$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+
 $objPHPExcel->getActiveSheet()->setTitle('Informe de vídeos');
 
 $objPHPExcel->setActiveSheetIndex(0);
 
 getHeaders();
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save('php://output');
 exit;
